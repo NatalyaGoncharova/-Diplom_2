@@ -1,11 +1,12 @@
 from data import *
 import requests
-from helper import *
+import allure
 
 
 class OrderApi:
 
     @staticmethod
+    @allure.step('Создаем список id ингредиентов')
     def get_id_ingredients():
         url = BASE_URL + INGREDIENTS_URL
         response = requests.get(url)
@@ -14,6 +15,7 @@ class OrderApi:
         return id_ingredients
 
     @staticmethod
+    @allure.step('Создаем заказ с добавлением ингридиентов')
     def create_order(ingredients, access_token=None):
         url = BASE_URL + USER_ORDER_URL
         data = {"ingredients": ingredients}
@@ -26,6 +28,7 @@ class OrderApi:
         return response
 
     @staticmethod
+    @allure.step('Получаем список заказов авторизованного пользователя')
     def get_order(access_token):
         url = BASE_URL + USER_ORDER_URL
         header = {'Authorization': access_token}

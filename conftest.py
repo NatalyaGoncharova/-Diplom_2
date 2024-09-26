@@ -5,12 +5,13 @@ from classes.class_user import *
 fake = Faker()
 
 
-@pytest.fixture
+@pytest.fixture(scope='function')
 def create_and_delete_user():
-    email = fake.email()
+    email = f'name987{fake.email()}'
     password = fake.password()
     name = fake.name()
     response = UserApi.registrate_user(email, password, name)
+    print(f"RESPONSSE  {response.json()}")
     access_token = response.json()['accessToken']
     yield email, password, name, response
     UserApi.delete_user(access_token)

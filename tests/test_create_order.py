@@ -1,8 +1,10 @@
 from classes.class_order import *
 from data import *
+import allure
 
 
 class TestOrderApi:
+    @allure.title("Создение заказа под авторизованным пользователем")
     def test_create_order_authorised_user_success(self, create_and_delete_user):
         ingredients = OrderApi.get_id_ingredients()[:2]
         email, password, name, response = create_and_delete_user
@@ -12,6 +14,7 @@ class TestOrderApi:
         assert response.status_code == 200
         assert response.json()['order']['owner']['email'] == email
 
+    @allure.title("Создение заказа под авторизованным пользователем")
     def test_create_order_unauthorised_user(self):
         ingredients = OrderApi.get_id_ingredients()[:1]
         response = OrderApi.create_order(ingredients)
@@ -19,6 +22,7 @@ class TestOrderApi:
         assert response.status_code == 200
         assert response.json()['order']['number'] > 0
 
+    @allure.title("Создение заказа без указания ингридиентов")
     def test_create_order_with_no_ingredients(self, create_and_delete_user):
         ingredients = []
         email, password, name, response = create_and_delete_user
@@ -28,6 +32,7 @@ class TestOrderApi:
         assert response.status_code == 400
         assert response.json()['message'] == MESSAGE_NO_INGREDIENTS
 
+    @allure.title("Создение заказа с несуществующими ингридиентами")
     def test_create_order_with_wrong_ingredients(self, create_and_delete_user):
         ingredients = ['324re3fdrd3er43erded32']
         response = OrderApi.create_order(ingredients)

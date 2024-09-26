@@ -2,6 +2,7 @@ import pytest
 from faker import Faker
 from classes.class_user import UserApi
 from data import *
+import allure
 
 fake = Faker()
 
@@ -10,6 +11,7 @@ class TestUserChangeDataApi:
     @pytest.mark.parametrize("field,value", [('email', fake.email()),
                                              ('password', fake.password()),
                                              ('name', fake.name())])
+    @allure.title("Изменение данных пользователя")
     def test_change_user_data_success(self, create_and_delete_user, field, value):
         email, password, name, response = create_and_delete_user
         access_token = response.json()['accessToken']
@@ -20,6 +22,7 @@ class TestUserChangeDataApi:
         assert response_change.status_code == 200
         assert response_change.json()['success'] == True
 
+    @allure.title("Изменение данных пользователя без указания access_token")
     def test_change_data_no_authorized_user(self, create_and_delete_user):
         email, password, name, response = create_and_delete_user
         access_token = fake.password()

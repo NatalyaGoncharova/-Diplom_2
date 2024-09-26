@@ -3,6 +3,7 @@ from data import *
 
 
 class TestOrderApiGet:
+    @allure.title("Получение заказа авторизованного пользователя")
     def test_get_order_authorized_user_success(self, create_and_delete_user):
         ingredients = OrderApi.get_id_ingredients()[:2]
         email, password, name, response = create_and_delete_user
@@ -17,6 +18,7 @@ class TestOrderApiGet:
 
         assert order_ingredients == ingredients
 
+    @allure.title("Получение заказа без указания access_token")
     def test_get_order_unauthorized_user(self):
         access_token = ''
         response = OrderApi.get_order(access_token)
