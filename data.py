@@ -1,0 +1,13 @@
+BASE_URL = 'https://stellarburgers.nomoreparties.site'
+REGISTRATION_URL = '/api/auth/register'
+AUTHORISATION_URL = '/api/auth/login'
+LOGOUT_URL = '/api/auth/logout'
+USER_DATA_URL = '/api/auth/user'
+USER_ORDER_URL = '/api/orders'
+INGREDIENTS_URL = '/api/ingredients'
+
+MESSAGE_USER_EXIST = 'User already exists'
+MESSAGE_USER_REQUIRED_DATA = 'Email, password and name are required fields'
+MESSAGE_INCORRECT_LOGIN_DATA = 'email or password are incorrect'
+MESSAGE_NO_AUTHORIZATION = 'You should be authorised'
+MESSAGE_NO_INGREDIENTS = 'Ingredient ids must be provided'
